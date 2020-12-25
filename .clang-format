@@ -1,0 +1,12 @@
+BasedOnStyle: Google
+IndentWidth: 4
+---
+Language: Cpp
+AccessModifierOffset: -2
+ColumnLimit: 120
+AlignConsecutiveAssignments: true
+AlignConsecutiveDeclarations: true 
+AllowShortFunctionsOnASingleLine: Empty
+BreakBeforeBraces: Allman
+BreakConstructorInitializersBeforeComma: true
+...
