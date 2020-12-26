@@ -27,9 +27,7 @@ class CScheduleStep
     constexpr CScheduleStep() {}
 
     constexpr CScheduleStep(hour_t f_time, output_t f_output, EScheduleTransition f_type)
-        : m_time(f_time)
-        , m_output(f_output)
-        , m_type(f_type)
+        : m_time(f_time), m_output(f_output), m_type(f_type)
     {
     }
 
@@ -67,10 +65,7 @@ enum class MODE : int
 class CTimedController
 {
   public:
-    CTimedController(schedule_t f_schedule)
-        : m_schedule(f_schedule)
-    {
-    }
+    CTimedController(schedule_t f_schedule) : m_schedule(f_schedule) {}
 
     void begin()
     {
@@ -88,7 +83,7 @@ class CTimedController
         }
 
         assert(m_pwmResolutionBit == 10);
-        constexpr float pwmMax = 1024.F; // actually 2^m_pwmResolutionBit
+        constexpr float pwmMax = 1024.F;  // actually 2^m_pwmResolutionBit
 
         float val = getValueFromSchedule(f_timeofDay);
 
@@ -121,16 +116,16 @@ class CTimedController
             const bool isInInterval = ((startTime <= f_timeofDay) && (endTime > f_timeofDay));
             if (isInInterval)
             {
-                switch (m_schedule[k].getTransitionType())
+                switch (m_schedule[k + 1].getTransitionType())
                 {
-                case EScheduleTransition::STEP:
-                    return startOutput;
+                    case EScheduleTransition::STEP:
+                        return startOutput;
 
-                case EScheduleTransition::LINEAR:
-                    return computeLinearInterpolation(f_timeofDay, startTime, endTime, startOutput, endOutput);
+                    case EScheduleTransition::LINEAR:
+                        return computeLinearInterpolation(f_timeofDay, startTime, endTime, startOutput, endOutput);
 
-                default:
-                    break;
+                    default:
+                        break;
                 }
             }
         }
@@ -160,6 +155,6 @@ class CTimedController
     const bool m_invertOutput{1};
 };
 
-} // namespace hydroshelf
+}  // namespace hydroshelf
 
-#endif // HYDROSHELF_LIGHT_CONTROLLER_HPP
+#endif  // HYDROSHELF_LIGHT_CONTROLLER_HPP
